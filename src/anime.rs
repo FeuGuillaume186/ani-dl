@@ -17,7 +17,7 @@ pub struct Media {
 }
 
 impl Display for Media {
-    fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
+    fn fmt(&self, f: &mut Formatter) -> std::fmt::Result {
         write!(f, "saison {}", self.season.to_string().yellow())
     }
 }
@@ -25,11 +25,11 @@ impl Display for Media {
 impl Medias {
     pub fn get_name(&self) -> Vec<String> {
         let mut names = Vec::new();
-        for anime in &self.media {
-            if !names.contains(&anime.name) {
-                names.push(anime.name.clone());
+        self.media.iter().for_each(|x| {
+            if !names.contains(&x.name) {
+                names.push(x.name.clone())
             }
-        }
+        });
         names
     }
     pub fn get_seasons_from_str(self, name: &str) -> Vec<Media> {

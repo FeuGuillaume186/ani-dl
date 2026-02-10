@@ -26,9 +26,8 @@ fn parse_range(input: &str) -> Result<(u32, u32), String> {
 }
 
 fn download(mut anime: Media) {
-    match PathBuf::from(&anime.name).exists() {
-        true => (),
-        false => std::fs::create_dir(&anime.name).unwrap(),
+    if !PathBuf::from(&anime.name).exists() {
+        std::fs::create_dir(&anime.name).unwrap();
     }
     std::env::set_current_dir(&anime.name).unwrap();
     let pool = ThreadPool::new(12);
